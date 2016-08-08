@@ -50,22 +50,20 @@
     <tbody>
       <tr>
         <td><?php echo $value[1]?></td>
-        <td><?php echo $value[2]?></td>
-        <td><?php echo $value[3]?></td>
+        <td><?php echo $value[2]?><?php echo $value[3]?></td>
+        <td><?php echo $value[4]?></td>
       </tr>
      <?php }?>
     </tbody>
   </table>
     <div align="center">
         <form method="post">
-            收入<input type="text" class="form-control" name="employeeID" value="">
-            金額<input type="text" class="form-control" name="employeeIDName" value="">
-            <button type="submit" class="addbutton" name="addmember">新增</button>
+            收入金額<input type="text" class="form-control" name="employeeIDName" value="">
+            <button type="submit" class="addbutton" name="income">新增</button>
         </form>
         <form method="post">
-            支出<input type="text" class="form-control" name="employeeID" value="">
-            金額<input type="text" class="form-control" name="employeeIDName" value="">
-            <button type="submit" class="addbutton" name="addmember">新增</button>
+            支出金額<input type="text" class="form-control" name="employeeIDName" value="">
+            <button type="submit" class="addbutton" name="expend">新增</button>
         </form> 
     </div>
 </body>
