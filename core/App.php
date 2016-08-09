@@ -14,7 +14,6 @@ class App {
         $controller = new $controllerName;
         $methodName = isset($url[1]) ? $url[1] : "index";
         if (!method_exists($controller, $methodName)) {
-
             return;
         }
         unset($url[0]); unset($url[1]);
@@ -31,7 +30,4 @@ class App {
             return $url;
         }
     }
-
 }
-
-?>
