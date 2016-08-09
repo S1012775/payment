@@ -13,12 +13,14 @@ class HomeController extends Controller
 
             //收入
         if (isset($_POST['addincome'])) {
+            $incomemoney = $_POST['incomemoney'];
             $countbalance = $browseitem->countIncome($incomemoney, $balanceNum);
             $this->view("echo", $countbalance);
             header("location:/EasyMVC/Home/item");
         }
             //支出
         if (isset($_POST['expend'])) {
+            $expendmoney = $_POST['expendmoney'];
             $countexpend=$browseitem->countExpend($balanceNum, $expendmoney);
             $this->view("echo",$countexpend);
             header("location:/EasyMVC/Home/item");

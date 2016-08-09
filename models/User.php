@@ -36,7 +36,6 @@ class User extends Connect
     // 寫入存款金額與計算餘額
     function countIncome($incomemoney, $balanceNum)
     {
-        $incomemoney = $_POST['incomemoney'];
         try{
 
             $this->db->beginTransaction(); 
@@ -75,7 +74,6 @@ class User extends Connect
     // 寫入出款金額與計算餘額
      function countExpend($expendmoney, $balanceNum)
     {
-        $expendmoney = $_POST['expendmoney'];
         try{
 
             $this->db->beginTransaction(); 
