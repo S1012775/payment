@@ -36,35 +36,39 @@
 
 <body>
 	<table id="keywords" cellspacing="0" cellpadding="0">
+	   
     <thead>
       <tr>
         <th><span>帳號</span></th>
-        <th><span>明細</span></th>
-        <th><span>總金額</span></th>
+        <th><span>支出</span></th>
+        <th><span>收入</span></th>
         
         
       </tr>
     </thead>
-     <?php  foreach( $data as $value) 
+     <?php  
+     foreach( $data[0] as $value) 
      {?>
     <tbody>
       <tr>
         <td><?php echo $value[1]?></td>
-        <td><?php echo $value[2]?><?php echo $value[3]?></td>
-        <td><?php echo $value[4]?></td>
+        <td><?php echo $value[2]?></td>
+        <td><?php echo $value[3]?></td>
       </tr>
      <?php }?>
     </tbody>
   </table>
     <div align="center">
-        <form method="post">
-            收入金額<input type="text" class="form-control" name="employeeIDName" value="">
-            <button type="submit" class="addbutton" name="income">新增</button>
-        </form>
-        <form method="post">
-            支出金額<input type="text" class="form-control" name="employeeIDName" value="">
+         <h2>總金額</h2><?php  foreach( $data[1] as $value) {
+	                          echo $value[0];}?>
+        <form method="post" action="item">
+            支出金額<input type="text" class="form-control" name="expendmoney" value="">
             <button type="submit" class="addbutton" name="expend">新增</button>
-        </form> 
+        </form>
+         <form method="post" action="item">
+            收入金額<input type="text" class="form-control" name="incomemoney" value="">
+            <button type="submit" class="addbutton" name="addincome">新增</button>
+        </form>
     </div>
 </body>
 
