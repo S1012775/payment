@@ -3,6 +3,7 @@
 class Connect
 {
     public $db;
+
     public function __construct()
     {
         $this->db = new PDO(
@@ -10,11 +11,9 @@ class Connect
             'root',
             '',
             array (
-                PDO::ATTR_EMULATE_PREPARES=>false,
-                PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION
+                PDO::ATTR_EMULATE_PREPARES => false,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
             )
         );
     }
 }
-
-
