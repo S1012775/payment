@@ -18,7 +18,7 @@ class User extends Connect
         }
         return  $arrayitem;
     }
-    
+
     //顯示餘額
     function showBalance()
     {
@@ -30,9 +30,9 @@ class User extends Connect
             $arraybalance[] = array ("$blalnce");
         }
         return  $arraybalance;
-        
+
     }
-    
+
     // 寫入存款金額與計算餘額
     function countIncome($incomemoney, $balanceNum)
     {
@@ -58,22 +58,23 @@ class User extends Connect
             $inBalanceData = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `id` = '1'");
             $inBalanceData->bindParam(':balanceNum', $balanceNum);
             $inBalanceData->execute();
-            
+
             $this->db->commit();
 
         } catch (Exception $err)
         {
             $this->db->rollBack();
             $msg = $err->getMessage();
-        } 
+        }
+
     return $msg;
     }
-    
+
     // 寫入出款金額與計算餘額
     function countExpend($expendmoney, $balanceNum)
     {
         try {
-            $this->db->beginTransaction(); 
+            $this->db->beginTransaction();
 
             //撈出餘額
             $sql = "SELECT * FROM `Balance` WHERE `id` = '1' FOR UPDATE";
@@ -105,7 +106,8 @@ class User extends Connect
         } catch (Exception $err) {
             $this->db->rollBack();
             $msg = $err->getMessage();
-        } 
+        }
+
     return $msg;
     }
 }
