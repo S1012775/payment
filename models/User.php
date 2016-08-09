@@ -86,7 +86,7 @@ class User extends Connect
             }
 
             //存入明細表
-            $sql=("INSERT INTO `bankSystem` ( `name`, `expend`) VALUES ( 'apple', :expendmoney)");
+            $sql="INSERT INTO `bankSystem` ( `name`, `expend`) VALUES ( 'apple', :expendmoney)";
             $result = $this->db->prepare($sql);
             $result->bindParam(":expendmoney", $expendmoney);
             $result->execute();
