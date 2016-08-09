@@ -8,13 +8,13 @@ class User extends Connect
         $sql = "SELECT * FROM `bankSystem`";
         $result = $this->db->prepare($sql);
         $result->execute();
-        foreach($result as $row){
+        foreach ($result as $row){
             $id = $row['id'];
             $name = $row['name'];
             $expend = $row['expend'];
             $income = $row['income'];
             $total = $row['total'];
-            $arrayitem[] = array("$id", "$name", "$expend", "$income", "$total");
+            $arrayitem[] = array ("$id", "$name", "$expend", "$income", "$total");
         }
         return  $arrayitem;
     }
@@ -25,9 +25,9 @@ class User extends Connect
         $sql = ("SELECT * FROM `Balance`");
         $result = $this->db->prepare($sql);
         $result->execute();
-        foreach($result as $row){
+        foreach ($result as $row){
             $blalnce = $row['balance'];
-            $arraybalance[] = array("$blalnce");
+            $arraybalance[] = array ("$blalnce");
         }
         return  $arraybalance;
         
