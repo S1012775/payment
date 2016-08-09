@@ -15,7 +15,7 @@ class HomeController extends Controller
             $incomeMoney = $_POST['incomemoney'];
             $countBalance = $browseItem->countIncome($incomeMoney, $balanceNum);
             $this->view("echo", $countBalance);
-            header("location:/EasyMVC/Home/item");
+            header("location:/bankSystem/Home/item");
         }
 
         //支出
@@ -23,7 +23,7 @@ class HomeController extends Controller
             $expendMoney = $_POST['expendmoney'];
             $countExpend = $browseItem->countExpend($balanceNum, $expendmoney);
             $this->view("echo", $countExpend);
-            header("location:/EasyMVC/Home/item");
+            header("location:/bankSystem/Home/item");
         }
 
         $this->view("index", $data);
