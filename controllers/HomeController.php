@@ -7,6 +7,7 @@ class HomeController extends Controller
         $browseitem = $this->model("User");
         // 顯示明細項目
         $item = $browseitem->item();
+        //顯示餘額
         $balance = $browseitem->showBalance();
         $data[] = $item;
         $data[] = $balance;
