@@ -1,5 +1,5 @@
 <?php
-
+mb_internal_encoding('utf-8');
 class HomeController extends Controller
 {
     function item()
