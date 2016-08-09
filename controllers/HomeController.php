@@ -23,7 +23,7 @@ class HomeController extends Controller
         if (isset($_POST['expend'])) {
             $expendmoney = $_POST['expendmoney'];
             $countexpend=$browseitem->countExpend($balanceNum, $expendmoney);
-            $this->view("echo",$countexpend);
+            $this->view("echo", $countexpend);
             header("location:/EasyMVC/Home/item");
         }
         $this->view("index", $data);
