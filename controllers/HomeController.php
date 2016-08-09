@@ -2,36 +2,28 @@
 
 class HomeController extends Controller
 {
-    
     function item()
     {
         $browseitem = $this->model("User");
-       
-            //顯示明細項目
-        $item=$browseitem->item();
-        $balance=$browseitem->showbalance();
-        $data[]=$item;
-        $data[]=$balance;
-        
+        // 顯示明細項目
+        $item = $browseitem->item();
+        $balance = $browseitem->showBalance();
+        $data[] = $item;
+        $data[] = $balance;
+
             //收入
-        if(isset($_POST['addincome'])){
-            $income= $_POST['incomemoney'];
-            $countbalance=$browseitem->countbalance();
-            $reslut=$browseitem->showincome($income);
-            $this->view("echo",$countbalance,$reslut);
+        if (isset($_POST['addincome'])) {
+            $countbalance = $browseitem->countIncome($incomemoney, $balanceNum);
+            $this->view("echo", $countbalance);
+            header("location:/EasyMVC/Home/item");
         }
             //支出
-         if(isset($_POST['expend'])){
-            $expend=$_POST['expendmoney'];
-            $countbalance=$browseitem->countbalance();
-            $reslut=$browseitem->showexpend($expend);
-            $this->view("echo",$countbalance,$reslut);
+        if (isset($_POST['expend'])) {
+            $countexpend=$browseitem->countExpend($balanceNum, $expendmoney);
+            $this->view("echo",$countexpend);
+            header("location:/EasyMVC/Home/item");
         }
-         $this->view("index",$data);
-         
-         
+        $this->view("index", $data);
     }
-    
-}
 
-?>
+}
