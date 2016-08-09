@@ -9,9 +9,9 @@
     <title>Stylish Portfolio - Start Bootstrap Theme</title>
     <link href = "../views/css/bootstrap.min.css" rel = "stylesheet">
     <link href = "../views/css/stylish-portfolio.css" rel = "stylesheet">
-    <link rel = "stylesheet"	href = "../views/css/selectButton.css" />
-    <link rel = "stylesheet"	href = "../views/css/addActivity.css" />
-    <link rel = "stylesheet"	href = "../views/css/seeActivity.css" />
+    <link rel = "stylesheet" href = "../views/css/selectButton.css" />
+    <link rel = "stylesheet" href = "../views/css/addActivity.css" />
+    <link rel = "stylesheet" href = "../views/css/seeActivity.css" />
     <script type = "text/javascript" src  ="/EasyMVC/views/js/jquery-1.9.1.min.js"></script>
 </head>
 
@@ -24,18 +24,18 @@
             <th><span>收入</span></th>
         </tr>
     </thead>
-    <?php foreach( $data[0] as $value) {?>
+    <?php foreach ($data[0] as $value) { ?>
     <tbody>
         <tr>
             <td><?php echo $value[1]?></td>
             <td><?php echo $value[2]?></td>
             <td><?php echo $value[3]?></td>
         </tr>
-    <?php }?>
+    <?php } ?>
     </tbody>
     </table>
     <div align = "center">
-        <h2>總金額</h2><?php  foreach( $data[1] as $value) {echo $value[0];}?>
+        <h2>總金額</h2><?php  foreach ($data[1] as $value) {echo $value[0]; } ?>
         <form method = "post" action = "item">
             支出金額
             <input type= "text" class = "form-control" name = "expendmoney" value = "">
