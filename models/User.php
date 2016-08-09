@@ -2,7 +2,7 @@
 
 class User extends Connect
 {
-    //顯示全部的明細
+    //回傳全部的明細
     function item()
     {
         $sql = "SELECT * FROM `bankSystem`";
@@ -19,7 +19,7 @@ class User extends Connect
         return  $arrayitem;
     }
 
-    //顯示餘額
+    //回傳餘額
     function showBalance()
     {
         $sql = ("SELECT * FROM `Balance`");
@@ -38,7 +38,7 @@ class User extends Connect
     {
         try{
 
-            $this->db->beginTransaction(); 
+            $this->db->beginTransaction();
 
             //撈出餘額
             $sql = "SELECT * FROM `Balance` WHERE `id` = '1' FOR UPDATE";
@@ -108,6 +108,6 @@ class User extends Connect
             $msg = $err->getMessage();
         }
 
-    return $msg;
+        return $msg;
     }
 }
