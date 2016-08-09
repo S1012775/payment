@@ -38,7 +38,7 @@
         <h2>總金額</h2><?php  foreach( $data[1] as $value) {echo $value[0];}?>
         <form method = "post" action = "item">
             支出金額
-            <input = "text" class = "form-control" name = "expendmoney" value = "">
+            <input type= "text" class = "form-control" name = "expendmoney" value = "">
             <button type = "submit" class = "addbutton" name = "expend">新增</button>
         </form>
         <form method = "post" action = "item">
