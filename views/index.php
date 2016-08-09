@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,23 +13,6 @@
     <link rel="stylesheet"	href="../views/css/addActivity.css" />
     <link rel="stylesheet"	href="../views/css/seeActivity.css" />
     <script type="text/javascript" src="/EasyMVC/views/js/jquery-1.9.1.min.js"></script>
-    <script >
-        $(document).ready(function(){
-            setInterval(function(){
-                refresh();
-            },1000);
-        });
-        
-       
-        function refresh(){
-            url = "/EasyMVC/Visit/ajax/"+ number;
-            $.get(url, function(data){
-                // alert(data);
-                $("#person").text("剩餘金額:"+data);
-            });
-            
-        }
-    </script>
 </head>
 
 <body>
@@ -42,13 +23,9 @@
         <th><span>帳號</span></th>
         <th><span>支出</span></th>
         <th><span>收入</span></th>
-        
-        
       </tr>
     </thead>
-     <?php  
-     foreach( $data[0] as $value) 
-     {?>
+     <?php foreach( $data[0] as $value) {?>
     <tbody>
       <tr>
         <td><?php echo $value[1]?></td>
@@ -59,8 +36,7 @@
     </tbody>
   </table>
     <div align="center">
-         <h2>總金額</h2><?php  foreach( $data[1] as $value) {
-	                          echo $value[0];}?>
+         <h2>總金額</h2><?php  foreach( $data[1] as $value) {echo $value[0];}?>
         <form method="post" action="item">
             支出金額<input type="text" class="form-control" name="expendmoney" value="">
             <button type="submit" class="addbutton" name="expend">新增</button>

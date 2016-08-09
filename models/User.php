@@ -1,6 +1,8 @@
 <?php
 
-class User extends Connect{
+class User extends Connect
+{
+    //顯示全部的明細
     function item()
     {
         $sql = "SELECT * FROM `bankSystem`";
@@ -17,6 +19,7 @@ class User extends Connect{
         return  $arrayitem;
     }
     
+    //顯示餘額
     function showBalance()
     {
         $sql = ("SELECT * FROM `Balance`");
@@ -29,6 +32,8 @@ class User extends Connect{
         return  $arraybalance;
         
     }
+    
+    // 寫入存款金額與計算餘額
     function countIncome($incomemoney, $balanceNum)
     {
         $incomemoney = $_POST['incomemoney'];
@@ -66,6 +71,8 @@ class User extends Connect{
         } 
     return $msg;
     }
+    
+    // 寫入出款金額與計算餘額
      function countExpend($expendmoney, $balanceNum)
     {
         $expendmoney = $_POST['expendmoney'];
@@ -91,7 +98,7 @@ class User extends Connect{
             $result->bindParam(":expendmoney", $expendmoney);
             $result->execute();
             $expendmoney = $_POST['expendmoney'];
-            
+
 
             //更新餘額
             $balanceNum = $balance - $expendmoney;
