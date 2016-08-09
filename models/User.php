@@ -14,9 +14,9 @@ class User extends Connect
             $expend = $row['expend'];
             $income = $row['income'];
             $total = $row['total'];
-            $arrayitem[] = array ("$id", "$name", "$expend", "$income", "$total");
+            $arrayItem[] = array ("$id", "$name", "$expend", "$income", "$total");
         }
-        return  $arrayitem;
+        return  $arrayItem;
     }
 
     //回傳餘額
@@ -27,13 +27,13 @@ class User extends Connect
         $result->execute();
         foreach ($result as $row){
             $blalnce = $row['balance'];
-            $arraybalance[] = array ("$blalnce");
+            $arrayBalance[] = array ("$blalnce");
         }
-        return  $arraybalance;
+        return  $arrayBalance;
     }
 
     // 寫入存款金額與計算餘額
-    function countIncome($incomemoney, $balanceNum)
+    function countIncome($incomeMoney, $balanceNum)
     {
         try{
 
@@ -47,13 +47,13 @@ class User extends Connect
             $balance = $count['balance'];
 
             //存入明細表
-            $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income` ) VALUES ('apple', :incomemoney)";
+            $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income` ) VALUES ('apple', :incomeMoney)";
             $result = $this->db ->prepare($sqlSave);
-            $result->bindParam(":incomemoney", $incomemoney);
+            $result->bindParam(":incomeMoney", $incomeMoney);
             $result->execute();
 
             //更新餘額
-            $balanceNum = $balance + $incomemoney;
+            $balanceNum = $balance + $incomeMoney;
             $inBalanceData = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `id` = '1'");
             $inBalanceData->bindParam(':balanceNum', $balanceNum);
             $inBalanceData->execute();
@@ -69,7 +69,7 @@ class User extends Connect
     }
 
     // 寫入出款金額與計算餘額
-    function countExpend($expendmoney, $balanceNum)
+    function countExpend($expendMoney, $balanceNum)
     {
         try {
             $this->db->beginTransaction();
@@ -81,20 +81,20 @@ class User extends Connect
             $count = $stmt->fetch();
             $balance = $count['balance'];
 
-            if ($balance < $expendmoney) {
+            if ($balance < $expendMoney) {
                 throw new Exception("餘額不足");
             }
 
             //存入明細表
-            $sql="INSERT INTO `bankSystem` ( `name`, `expend`) VALUES ( 'apple', :expendmoney)";
+            $sql="INSERT INTO `bankSystem` ( `name`, `expend`) VALUES ( 'apple', :expendMoney)";
             $result = $this->db->prepare($sql);
-            $result->bindParam(":expendmoney", $expendmoney);
+            $result->bindParam(":expendMoney", $expendMoney);
             $result->execute();
-            $expendmoney = $_POST['expendmoney'];
+            $expendMoney = $_POST['expendmoney'];
 
 
             //更新餘額
-            $balanceNum = $balance - $expendmoney;
+            $balanceNum = $balance - $expendMoney;
             $inBalanceData = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `id` = '1'");
             $inBalanceData->bindParam(':balanceNum', $balanceNum);
             $inBalanceData->execute();
