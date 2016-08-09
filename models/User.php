@@ -47,7 +47,6 @@ class User extends Connect
             $count = $stmt->fetch();
             $balance = $count['balance'];
 
-
             //存入明細表
             $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income` ) VALUES ('apple', :incomemoney)";
             $result = $this->db ->prepare($sqlSave);
@@ -71,10 +70,9 @@ class User extends Connect
     }
     
     // 寫入出款金額與計算餘額
-     function countExpend($expendmoney, $balanceNum)
+    function countExpend($expendmoney, $balanceNum)
     {
-        try{
-
+        try {
             $this->db->beginTransaction(); 
 
             //撈出餘額
@@ -104,8 +102,7 @@ class User extends Connect
 
             $this->db->commit();
 
-        }catch (Exception $err)
-        {
+        } catch (Exception $err) {
             $this->db->rollBack();
             $msg = $err->getMessage();
         } 
