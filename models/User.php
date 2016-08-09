@@ -22,7 +22,7 @@ class User extends Connect
     //回傳餘額
     function showBalance()
     {
-        $sql = ("SELECT * FROM `Balance`");
+        $sql = "SELECT * FROM `Balance`";
         $result = $this->db->prepare($sql);
         $result->execute();
         foreach ($result as $row){
@@ -30,7 +30,6 @@ class User extends Connect
             $arraybalance[] = array ("$blalnce");
         }
         return  $arraybalance;
-
     }
 
     // 寫入存款金額與計算餘額
@@ -66,8 +65,7 @@ class User extends Connect
             $this->db->rollBack();
             $msg = $err->getMessage();
         }
-
-    return $msg;
+        return $msg;
     }
 
     // 寫入出款金額與計算餘額
@@ -107,7 +105,6 @@ class User extends Connect
             $this->db->rollBack();
             $msg = $err->getMessage();
         }
-
         return $msg;
     }
 }
