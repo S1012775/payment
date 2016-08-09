@@ -83,7 +83,7 @@ class User extends Connect
             $count = $stmt->fetch();
             $balance = $count['balance'];
 
-            if($balance < $expendmoney) {
+            if ($balance < $expendmoney) {
                 throw new Exception("餘額不足");
             }
 
