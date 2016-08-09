@@ -46,8 +46,7 @@ class User extends Connect
             $stmt->execute();
             $count = $stmt->fetch();
             $balance = $count['balance'];
-            
-            sleep(3);
+
 
             //存入明細表
             $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income` ) VALUES ('apple', :incomemoney)";
