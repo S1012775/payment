@@ -19,17 +19,21 @@
     <table id = "keywords" cellspacing = "0" cellpadding = "0" >
     <thead>
         <tr>
+            <th><span>時間</span></th>
             <th><span>帳號</span></th>
             <th><span>支出</span></th>
             <th><span>收入</span></th>
+            <th><span>餘額</span></th>
         </tr>
     </thead>
     <?php foreach ($data[0] as $value) { ?>
     <tbody>
         <tr>
+            <td><?php echo $value[5]?></td>
             <td><?php echo $value[1]?></td>
             <td><?php echo $value[2]?></td>
             <td><?php echo $value[3]?></td>
+            <td><?php echo $value[4]?></td>
         </tr>
     <?php } ?>
     </tbody>

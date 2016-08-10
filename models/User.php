@@ -14,7 +14,8 @@ class User extends Connect
             $expend = $row['expend'];
             $income = $row['income'];
             $total = $row['total'];
-            $arrayItem[] = array ("$id", "$name", "$expend", "$income", "$total");
+            $nowTime=$row['nowTime'];
+            $arrayItem[] = array ("$id", "$name", "$expend", "$income", "$total","$nowTime");
         }
         return  $arrayItem;
     }
