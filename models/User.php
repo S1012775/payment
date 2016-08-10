@@ -40,8 +40,6 @@ class User extends Connect
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
-        $incomeMoney = $_POST['incomemoney'];
-        $name = $_POST['searchName'];
         try {
 
             $this->db->beginTransaction();
@@ -85,7 +83,6 @@ class User extends Connect
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
-        $expendMoney = $_POST['expendmoney'];
         try {
             $this->db->beginTransaction();
 
