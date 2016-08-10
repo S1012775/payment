@@ -9,7 +9,8 @@ class User extends Connect
         $result = $this->db->prepare($sql);
         $result->bindParam(":name", $name);
         $result->execute();
-        foreach ($result as $row){
+
+        foreach ($result as $row) {
             $id = $row['id'];
             $name = $row['name'];
             $expend = $row['expend'];
@@ -18,6 +19,7 @@ class User extends Connect
             $nowTime = $row['nowTime'];
             $arrayItem[] = array ("$id", "$name", "$expend", "$income", "$total","$nowTime");
         }
+
         return  $arrayItem;
     }
 
@@ -28,10 +30,12 @@ class User extends Connect
         $result = $this->db->prepare($sql);
         $result->bindParam(":name", $name);
         $result->execute();
-        foreach ($result as $row){
+
+        foreach ($result as $row) {
             $blalnce = $row['balance'];
             $arrayBalance[] = array ("$blalnce");
         }
+
         return  $arrayBalance;
     }
 
@@ -75,6 +79,7 @@ class User extends Connect
             $this->db->rollBack();
             $msg = $err->getMessage();
         }
+
         return $msg;
     }
 
@@ -108,7 +113,6 @@ class User extends Connect
             $result->bindParam(":name", $name);
             $result->execute();
 
-
             //更新餘額
             $updateBalabce = $balance - $expendMoney;
             $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
@@ -122,6 +126,7 @@ class User extends Connect
             $this->db->rollBack();
             $msg = $err->getMessage();
         }
+
         return $msg;
     }
 }
