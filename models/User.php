@@ -14,7 +14,7 @@ class User extends Connect
             $expend = $row['expend'];
             $income = $row['income'];
             $total = $row['total'];
-            $nowTime=$row['nowTime'];
+            $nowTime = $row['nowTime'];
             $arrayItem[] = array ("$id", "$name", "$expend", "$income", "$total","$nowTime");
         }
         return  $arrayItem;
@@ -39,7 +39,7 @@ class User extends Connect
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
         $incomeMoney = $_POST['incomemoney'];
-        try{
+        try {
 
             $this->db->beginTransaction();
 
@@ -67,8 +67,7 @@ class User extends Connect
 
             $this->db->commit();
 
-        } catch (Exception $err)
-        {
+        } catch (Exception $err) {
             $this->db->rollBack();
             $msg = $err->getMessage();
         }
