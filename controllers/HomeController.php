@@ -25,7 +25,7 @@ class HomeController extends Controller
         $name = $_POST['searchName'];
         $incomeMoney = $_POST['incomemoney'];
         $browseItem = $this->model("User");
-        $countBalance = $browseItem->countIncome($incomeMoney, $updateBalabce,  $nowBalance, $now, $name);
+        $countBalance = $browseItem->countIncome($incomeMoney, $updateBalabce, $nowBalance, $now, $name);
         $this->view("echo", $countBalance);
         header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
     }
