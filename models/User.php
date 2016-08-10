@@ -3,10 +3,11 @@
 class User extends Connect
 {
     //回傳全部的明細
-    function item()
+    function item($name)
     {
-        $sql = "SELECT * FROM `bankSystem`";
+        $sql = "SELECT * FROM `bankSystem` WHERE `name` = :name";
         $result = $this->db->prepare($sql);
+        $result->bindParam(":name", $name);
         $result->execute();
         foreach ($result as $row){
             $id = $row['id'];
@@ -21,10 +22,11 @@ class User extends Connect
     }
 
     //回傳餘額
-    function showBalance()
+    function showBalance($name)
     {
-        $sql = "SELECT * FROM `Balance`";
+        $sql = "SELECT * FROM `Balance` WHERE `name` = :name";
         $result = $this->db->prepare($sql);
+        $result->bindParam(":name", $name);
         $result->execute();
         foreach ($result as $row){
             $blalnce = $row['balance'];
@@ -34,26 +36,29 @@ class User extends Connect
     }
 
     // 寫入存款金額與計算餘額
-    function countIncome($incomeMoney, $balanceNum, $nowBalance, $now)
+    function countIncome($incomeMoney, $balanceNum, $nowBalance, $now, $name)
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
         $incomeMoney = $_POST['incomemoney'];
+        $name = $_POST['searchName'];
         try {
 
             $this->db->beginTransaction();
 
             //撈出總共餘額
-            $sql = "SELECT * FROM `Balance` WHERE `id` = '1' FOR UPDATE";
+            $sql = "SELECT * FROM `Balance` WHERE `name` = :name FOR UPDATE";
             $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":name", $name);
             $stmt->execute();
             $count = $stmt->fetch();
             $balance = $count['balance'];
             $nowBalance = $balance + $incomeMoney;
 
             //存入明細表
-            $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income`, `total`, `nowTime`) VALUES ('apple', :incomeMoney, :nowBalance, :now)";
+            $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income`, `total`, `nowTime`) VALUES (:name, :incomeMoney, :nowBalance, :now) WHERE `name` = :name";
             $result = $this->db ->prepare($sqlSave);
+            $result->bindParam(":name", $name);
             $result->bindParam(":incomeMoney", $incomeMoney);
             $result->bindParam(":nowBalance", $nowBalance);
             $result->bindParam(":now", $now);
@@ -61,8 +66,9 @@ class User extends Connect
 
             //更新餘額
             $balanceNum = $balance + $incomeMoney;
-            $inBalanceData = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `id` = '1'");
+            $inBalanceData = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
             $inBalanceData->bindParam(':balanceNum', $balanceNum);
+            $inBalanceData->bindParam(":name", $name);
             $inBalanceData->execute();
 
             $this->db->commit();
@@ -75,7 +81,7 @@ class User extends Connect
     }
 
     // 寫入出款金額與計算餘額
-    function countExpend($expendMoney, $balanceNum, $nowBalance, $now)
+    function countExpend($expendMoney, $balanceNum, $nowBalance, $now, $name)
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
@@ -84,8 +90,9 @@ class User extends Connect
             $this->db->beginTransaction();
 
             //撈出餘額
-            $sql = "SELECT * FROM `Balance` WHERE `id` = '1' FOR UPDATE";
+            $sql = "SELECT * FROM `Balance` WHERE `name` = :name FOR UPDATE";
             $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":name", $name);
             $stmt->execute();
             $count = $stmt->fetch();
             $balance = $count['balance'];
@@ -96,18 +103,20 @@ class User extends Connect
             }
 
             //存入明細表
-            $sql="INSERT INTO `bankSystem` ( `name`, `expend`, `total`, `nowTime`) VALUES ( 'apple', :expendMoney, :nowBalance, :now)";
+            $sql="INSERT INTO `bankSystem` ( `name`, `expend`, `total`, `nowTime`) VALUES (:name, :expendMoney, :nowBalance, :now) WHERE `name` = :name";
             $result = $this->db->prepare($sql);
             $result->bindParam(":expendMoney", $expendMoney);
             $result->bindParam(":now", $now);
             $result->bindParam(":nowBalance", $nowBalance);
+            $result->bindParam(":name", $name);
             $result->execute();
 
 
             //更新餘額
             $balanceNum = $balance - $expendMoney;
-            $inBalanceData = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `id` = '1'");
+            $inBalanceData = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
             $inBalanceData->bindParam(':balanceNum', $balanceNum);
+            $inBalanceData->bindParam(":name", $name);
             $inBalanceData->execute();
 
             $this->db->commit();

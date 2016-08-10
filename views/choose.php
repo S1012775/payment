@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1">
+    <meta name = "description" content = "">
+    <meta name = "author" content = "">
+    <title>Stylish Portfolio - Start Bootstrap Theme</title>
+    <link href = "../views/css/bootstrap.min.css" rel = "stylesheet">
+    <link href = "../views/css/stylish-portfolio.css" rel = "stylesheet">
+    <link rel = "stylesheet" href = "../views/css/selectButton.css" />
+    <link rel = "stylesheet" href = "../views/css/addActivity.css" />
+    <link rel = "stylesheet" href = "../views/css/seeActivity.css" />
+    <script type = "text/javascript" src  ="/EasyMVC/views/js/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+
+    <div align = "center">
+        <form method = "post" action = "btExpend">
+            帳號
+            <input type= "text" class = "form-control" name = "searchName" value = "">
+            支出金額
+            <input type= "text" class = "form-control" name = "expendmoney" value = "">
+            <button type = "submit" class = "addbutton" name = "expend">新增</button>
+        </form>
+        <form method = "post" action = "btIncome">
+            帳號
+            <input type= "text" class = "form-control" name = "searchName" value = "">
+            收入金額
+            <input type = "text" class = "form-control" name = "incomemoney" value = "">
+            <button type = "submit" class = "addbutton" name = "addincome">新增</button>
+        </form>
+        <form method = "post" action = "item">
+            帳號
+            <input type= "text" class = "form-control" name = "searchName" value = "">
+            <button type = "submit" class = "addbutton" name = "btSearch">搜尋</button>
+        </form>
+    </div>
+</body>
+
+</html>
