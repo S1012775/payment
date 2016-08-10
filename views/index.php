@@ -40,12 +40,12 @@
     </table>
     <div align = "center">
         <h2>總金額</h2><?php  foreach ($data[1] as $value) {echo $value[0]; } ?>
-        <form method = "post" action = "item">
+        <form method = "post" action = "btExpend">
             支出金額
             <input type= "text" class = "form-control" name = "expendmoney" value = "">
             <button type = "submit" class = "addbutton" name = "expend">新增</button>
         </form>
-        <form method = "post" action = "item">
+        <form method = "post" action = "btIncome">
             收入金額
             <input type = "text" class = "form-control" name = "incomemoney" value = "">
             <button type = "submit" class = "addbutton" name = "addincome">新增</button>
