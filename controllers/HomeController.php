@@ -26,7 +26,7 @@ class HomeController extends Controller
             $browseItem = $this->model("User");
             $countBalance = $browseItem->countIncome($incomeMoney, $balanceNum,  $nowBalance, $now, $name);
             $this->view("echo", $countBalance);
-            // header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
+            header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
     }
 
     function btExpend()

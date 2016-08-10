@@ -56,7 +56,7 @@ class User extends Connect
             $nowBalance = $balance + $incomeMoney;
 
             //存入明細表
-            $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income`, `total`, `nowTime`) VALUES (:name, :incomeMoney, :nowBalance, :now) WHERE `name` = :name";
+            $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income`, `total`, `nowTime`) VALUES (:name, :incomeMoney, :nowBalance, :now)";
             $result = $this->db ->prepare($sqlSave);
             $result->bindParam(":name", $name);
             $result->bindParam(":incomeMoney", $incomeMoney);
@@ -103,7 +103,7 @@ class User extends Connect
             }
 
             //存入明細表
-            $sql="INSERT INTO `bankSystem` ( `name`, `expend`, `total`, `nowTime`) VALUES (:name, :expendMoney, :nowBalance, :now) WHERE `name` = :name";
+            $sql="INSERT INTO `bankSystem` ( `name`, `expend`, `total`, `nowTime`) VALUES (:name, :expendMoney, :nowBalance, :now)";
             $result = $this->db->prepare($sql);
             $result->bindParam(":expendMoney", $expendMoney);
             $result->bindParam(":now", $now);
