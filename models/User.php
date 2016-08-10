@@ -36,7 +36,7 @@ class User extends Connect
     }
 
     // 寫入存款金額與計算餘額
-    function countIncome($incomeMoney, $balanceNum, $nowBalance, $now, $name)
+    function countIncome($incomeMoney, $updateBalabce, $nowBalance, $now, $name)
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
@@ -63,11 +63,11 @@ class User extends Connect
             $result->execute();
 
             //更新餘額
-            $balanceNum = $balance + $incomeMoney;
-            $inBalanceData = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
-            $inBalanceData->bindParam(':balanceNum', $balanceNum);
-            $inBalanceData->bindParam(":name", $name);
-            $inBalanceData->execute();
+            $updateBalabce = $balance + $incomeMoney;
+            $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
+            $result->bindParam(':balanceNum', $updateBalabce);
+            $result->bindParam(":name", $name);
+            $result->execute();
 
             $this->db->commit();
 
@@ -79,7 +79,7 @@ class User extends Connect
     }
 
     // 寫入出款金額與計算餘額
-    function countExpend($expendMoney, $balanceNum, $nowBalance, $now, $name)
+    function countExpend($expendMoney, $updateBalabce, $nowBalance, $now, $name)
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
@@ -110,11 +110,11 @@ class User extends Connect
 
 
             //更新餘額
-            $balanceNum = $balance - $expendMoney;
-            $inBalanceData = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
-            $inBalanceData->bindParam(':balanceNum', $balanceNum);
-            $inBalanceData->bindParam(":name", $name);
-            $inBalanceData->execute();
+            $updateBalabce = $balance - $expendMoney;
+            $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
+            $result->bindParam(':balanceNum', $updateBalabce);
+            $result->bindParam(":name", $name);
+            $result->execute();
 
             $this->db->commit();
 
