@@ -2,8 +2,10 @@
 
 class HomeController extends Controller
 {
+    //搜尋帳號明細
     function item()
     {
+        $searchName = $_POST['searchName'];
         $browseItem = $this->model("User");
         $item = $browseItem->item();
         $balance = $browseItem->showBalance();
