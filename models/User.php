@@ -34,23 +34,29 @@ class User extends Connect
     }
 
     // 寫入存款金額與計算餘額
-    function countIncome($incomeMoney, $balanceNum)
+    function countIncome($incomeMoney, $balanceNum, $nowBalance, $now)
     {
+        date_default_timezone_set('Asia/Taipei');
+        $now = date("Y-m-d H:i:s");
+        $incomeMoney = $_POST['incomemoney'];
         try{
 
             $this->db->beginTransaction();
 
-            //撈出餘額
+            //撈出總共餘額
             $sql = "SELECT * FROM `Balance` WHERE `id` = '1' FOR UPDATE";
             $stmt = $this->db->prepare($sql);
             $stmt->execute();
             $count = $stmt->fetch();
             $balance = $count['balance'];
+            $nowBalance = $balance + $incomeMoney;
 
             //存入明細表
-            $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income` ) VALUES ('apple', :incomeMoney)";
+            $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income`, `total`, `nowTime`) VALUES ('apple', :incomeMoney, :nowBalance, :now)";
             $result = $this->db ->prepare($sqlSave);
             $result->bindParam(":incomeMoney", $incomeMoney);
+            $result->bindParam(":nowBalance", $nowBalance);
+            $result->bindParam(":now", $now);
             $result->execute();
 
             //更新餘額
@@ -70,8 +76,11 @@ class User extends Connect
     }
 
     // 寫入出款金額與計算餘額
-    function countExpend($expendMoney, $balanceNum)
+    function countExpend($expendMoney, $balanceNum, $nowBalance, $now)
     {
+        date_default_timezone_set('Asia/Taipei');
+        $now = date("Y-m-d H:i:s");
+        $expendMoney = $_POST['expendmoney'];
         try {
             $this->db->beginTransaction();
 
@@ -81,17 +90,19 @@ class User extends Connect
             $stmt->execute();
             $count = $stmt->fetch();
             $balance = $count['balance'];
+            $nowBalance = $balance - $expendMoney;
 
             if ($balance < $expendMoney) {
                 throw new Exception("餘額不足");
             }
 
             //存入明細表
-            $sql="INSERT INTO `bankSystem` ( `name`, `expend`) VALUES ( 'apple', :expendMoney)";
+            $sql="INSERT INTO `bankSystem` ( `name`, `expend`, `total`, `nowTime`) VALUES ( 'apple', :expendMoney, :nowBalance, :now)";
             $result = $this->db->prepare($sql);
             $result->bindParam(":expendMoney", $expendMoney);
+            $result->bindParam(":now", $now);
+            $result->bindParam(":nowBalance", $nowBalance);
             $result->execute();
-            $expendMoney = $_POST['expendmoney'];
 
 
             //更新餘額

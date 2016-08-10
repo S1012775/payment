@@ -12,16 +12,14 @@ class HomeController extends Controller
 
         //收入
         if (isset($_POST['addincome'])) {
-            $incomeMoney = $_POST['incomemoney'];
-            $countBalance = $browseItem->countIncome($incomeMoney, $balanceNum);
+            $countBalance = $browseItem->countIncome($incomeMoney, $balanceNum,  $nowBalance, $now);
             $this->view("echo", $countBalance);
             header("location:/bankSystem/Home/item");
         }
 
         //支出
         if (isset($_POST['expend'])) {
-            $expendMoney = $_POST['expendmoney'];
-            $countExpend = $browseItem->countExpend($balanceNum, $expendmoney);
+            $countExpend = $browseItem->countExpend($balanceNum, $expendmoney, $nowBalance, $now);
             $this->view("echo", $countExpend);
             header("location:/bankSystem/Home/item");
         }
