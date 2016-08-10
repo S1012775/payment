@@ -44,8 +44,8 @@ class User extends Connect
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
-        try {
 
+        try {
             $this->db->beginTransaction();
 
             //撈出總共餘額
@@ -88,6 +88,7 @@ class User extends Connect
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
+
         try {
             $this->db->beginTransaction();
 
