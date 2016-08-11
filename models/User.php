@@ -38,7 +38,7 @@ class User extends Connect
     }
 
     // 寫入存款金額與計算餘額
-    function countIncome($money, $updateBalabce, $nowBalance, $now, $name)
+    public function countIncome($money, $updateBalabce, $nowBalance, $now, $name)
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
@@ -84,7 +84,7 @@ class User extends Connect
     }
 
     // 寫入出款金額與計算餘額
-    function countExpend($money, $updateBalabce, $nowBalance, $now, $name)
+    public function countExpend($money, $updateBalabce, $nowBalance, $now, $name)
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");

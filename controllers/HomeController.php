@@ -2,12 +2,12 @@
 
 class HomeController extends Controller
 {
-    function index()
+    public function index()
     {
         $this->view("choose");
     }
 
-    function btAction()
+    public function btAction()
     {
         $name = $_POST['searchName'];
         $money = $_POST['money'];
