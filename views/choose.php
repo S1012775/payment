@@ -20,7 +20,7 @@
     <div align = "center">
         <form method = "post" action = "btAction">
             <input type= "text" class = "form-control" name = "searchName" placeholder="帳號"><br>
-            <input type= "text" class = "form-control" name = "money" placeholder="金額"><br>
+            <input type= "text" class = "form-control" name = "money" placeholder="金額" pattern = "[0-9]{1,15}"><br>
             <button type = "submit" class = "addbutton" name = "expend">出款</button>
             <button type = "submit" class = "addbutton" name = "income">入款</button><br>
             <button type = "submit" class = "addbutton" name = "btSearch">搜尋</button>

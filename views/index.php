@@ -17,6 +17,9 @@
 
 <body>
     <a href = "index">回上一頁</a>
+    <div align = "center">
+        <h2>總金額</h2><?php  foreach ($data[1] as $value) {echo $value['balance']; } ?>
+    </div>
     <table id = "keywords" cellspacing = "0" cellpadding = "0" >
     <thead>
         <tr>
@@ -39,9 +42,6 @@
     <?php } ?>
     </tbody>
     </table>
-    <div align = "center">
-        <h2>總金額</h2><?php  foreach ($data[1] as $value) {echo $value['balance']; } ?>
-    </div>
 </body>
 
 </html>
