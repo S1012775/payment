@@ -40,7 +40,7 @@ class User extends Connect
     }
 
     // 寫入存款金額與計算餘額
-    function countIncome($incomeMoney, $updateBalabce, $nowBalance, $now, $name)
+    function countIncome($money, $updateBalabce, $nowBalance, $now, $name)
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
@@ -55,19 +55,19 @@ class User extends Connect
             $stmt->execute();
             $count = $stmt->fetch();
             $balance = $count['balance'];
-            $nowBalance = $balance + $incomeMoney;
+            $nowBalance = $balance + $money;
 
             //存入明細表
             $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income`, `total`, `nowTime`) VALUES (:name, :incomeMoney, :nowBalance, :now)";
             $result = $this->db ->prepare($sqlSave);
             $result->bindParam(":name", $name);
-            $result->bindParam(":incomeMoney", $incomeMoney);
+            $result->bindParam(":incomeMoney", $money);
             $result->bindParam(":nowBalance", $nowBalance);
             $result->bindParam(":now", $now);
             $result->execute();
 
             //更新餘額
-            $updateBalabce = $balance + $incomeMoney;
+            $updateBalabce = $balance + $money;
             $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
             $result->bindParam(':balanceNum', $updateBalabce);
             $result->bindParam(":name", $name);
@@ -84,7 +84,7 @@ class User extends Connect
     }
 
     // 寫入出款金額與計算餘額
-    function countExpend($expendMoney, $updateBalabce, $nowBalance, $now, $name)
+    function countExpend($money, $updateBalabce, $nowBalance, $now, $name)
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
@@ -99,23 +99,23 @@ class User extends Connect
             $stmt->execute();
             $count = $stmt->fetch();
             $balance = $count['balance'];
-            $nowBalance = $balance - $expendMoney;
+            $nowBalance = $balance - $money;
 
-            if ($balance < $expendMoney) {
+            if ($balance < $money) {
                 throw new Exception("餘額不足");
             }
 
             //存入明細表
             $sql="INSERT INTO `bankSystem` ( `name`, `expend`, `total`, `nowTime`) VALUES (:name, :expendMoney, :nowBalance, :now)";
             $result = $this->db->prepare($sql);
-            $result->bindParam(":expendMoney", $expendMoney);
+            $result->bindParam(":expendMoney", $money);
             $result->bindParam(":now", $now);
             $result->bindParam(":nowBalance", $nowBalance);
             $result->bindParam(":name", $name);
             $result->execute();
 
             //更新餘額
-            $updateBalabce = $balance - $expendMoney;
+            $updateBalabce = $balance - $money;
             $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
             $result->bindParam(':balanceNum', $updateBalabce);
             $result->bindParam(":name", $name);

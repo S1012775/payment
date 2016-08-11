@@ -18,19 +18,13 @@
 <body>
 
     <div align = "center">
-        <form method = "post" action = "btExpend">
+        <form method = "post" action = "btAction">
             帳號
             <input type= "text" class = "form-control" name = "searchName" value = "">
-            支出金額
-            <input type= "text" class = "form-control" name = "expendmoney" value = "">
-            <button type = "submit" class = "addbutton" name = "expend">新增</button>
-        </form>
-        <form method = "post" action = "btIncome">
-            帳號
-            <input type= "text" class = "form-control" name = "searchName" value = "">
-            收入金額
-            <input type = "text" class = "form-control" name = "incomemoney" value = "">
-            <button type = "submit" class = "addbutton" name = "addincome">新增</button>
+            金額
+            <input type= "text" class = "form-control" name = "money" value = "">
+            <button type = "submit" class = "addbutton" name = "expend">出款</button>
+            <button type = "submit" class = "addbutton" name = "income">入款</button>
         </form>
         <form method = "post" action = "item">
             帳號
