@@ -10,7 +10,7 @@ class Connect
             'mysql:host=localhost; dbname=payment; charset=utf8',
             'root',
             '',
-            array (
+            array(
                 PDO::ATTR_EMULATE_PREPARES => false,
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
             )

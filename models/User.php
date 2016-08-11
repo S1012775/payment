@@ -2,8 +2,7 @@
 
 class User extends Connect
 {
-    //回傳全部的明細
-    function item($name)
+    public function getAllDetial($name)
     {
         $sql = "SELECT * FROM `bankSystem` WHERE `name` = :name";
         $result = $this->db->prepare($sql);
@@ -17,14 +16,13 @@ class User extends Connect
             $income = $row['income'];
             $total = $row['total'];
             $nowTime = $row['nowTime'];
-            $arrayItem[] = array ("$id", "$name", "$expend", "$income", "$total","$nowTime");
+            $arrayItem[] = array("$id", "$name", "$expend", "$income", "$total","$nowTime");
         }
 
-        return  $arrayItem;
+        return $arrayItem;
     }
 
-    //回傳餘額
-    function showBalance($name)
+    public function getBalance($name)
     {
         $sql = "SELECT * FROM `Balance` WHERE `name` = :name";
         $result = $this->db->prepare($sql);
@@ -33,10 +31,10 @@ class User extends Connect
 
         foreach ($result as $row) {
             $blalnce = $row['balance'];
-            $arrayBalance[] = array ("$blalnce");
+            $arrayBalance[] = array("$blalnce");
         }
 
-        return  $arrayBalance;
+        return $arrayBalance;
     }
 
     // 寫入存款金額與計算餘額
@@ -55,21 +53,23 @@ class User extends Connect
             $stmt->execute();
             $count = $stmt->fetch();
             $balance = $count['balance'];
-            $nowBalance = $balance + $money;
+            $addBalance = $balance + $money;
+
 
             //存入明細表
-            $sqlSave = "INSERT INTO `bankSystem` ( `name`, `income`, `total`, `nowTime`) VALUES (:name, :incomeMoney, :nowBalance, :now)";
-            $result = $this->db ->prepare($sqlSave);
+            $sql = "INSERT INTO `bankSystem` (`name`, `income`, `total`, `nowTime`)
+                        VALUES (:name, :money, :balance, :now)";
+            $result = $this->db ->prepare($sql);
             $result->bindParam(":name", $name);
-            $result->bindParam(":incomeMoney", $money);
-            $result->bindParam(":nowBalance", $nowBalance);
+            $result->bindParam(":money", $money);
+            $result->bindParam(":balance", $addBalance);
             $result->bindParam(":now", $now);
             $result->execute();
 
             //更新餘額
             $updateBalabce = $balance + $money;
-            $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
-            $result->bindParam(':balanceNum', $updateBalabce);
+            $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balance WHERE `name` = :name");
+            $result->bindParam(':balance', $updateBalabce);
             $result->bindParam(":name", $name);
             $result->execute();
 
@@ -106,18 +106,19 @@ class User extends Connect
             }
 
             //存入明細表
-            $sql="INSERT INTO `bankSystem` ( `name`, `expend`, `total`, `nowTime`) VALUES (:name, :expendMoney, :nowBalance, :now)";
+            $sql="INSERT INTO `bankSystem` ( `name`, `expend`, `total`, `nowTime`)
+                    VALUES (:name, :money, :balance, :now)";
             $result = $this->db->prepare($sql);
-            $result->bindParam(":expendMoney", $money);
+            $result->bindParam(":money", $money);
             $result->bindParam(":now", $now);
-            $result->bindParam(":nowBalance", $nowBalance);
+            $result->bindParam(":balance", $nowBalance);
             $result->bindParam(":name", $name);
             $result->execute();
 
             //更新餘額
             $updateBalabce = $balance - $money;
-            $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balanceNum WHERE `name` = :name");
-            $result->bindParam(':balanceNum', $updateBalabce);
+            $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balance WHERE `name` = :name");
+            $result->bindParam(':balance', $updateBalabce);
             $result->bindParam(":name", $name);
             $result->execute();
 

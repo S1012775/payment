@@ -9,7 +9,7 @@ class HomeController extends Controller
 
     function btAction()
     {
-        if(isset($_POST['expend'])) {
+        if (isset($_POST['expend'])) {
             $name = $_POST['searchName'];
             $money = $_POST['money'];
             $browseItem = $this->model("User");
@@ -18,7 +18,7 @@ class HomeController extends Controller
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
         }
 
-        if(isset($_POST['income'])) {
+        if (isset($_POST['income'])) {
             $name = $_POST['searchName'];
             $money = $_POST['money'];
             $browseItem = $this->model("User");
@@ -27,11 +27,11 @@ class HomeController extends Controller
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
         }
 
-        if(isset($_POST['btSearch'])) {
+        if (isset($_POST['btSearch'])) {
             $name = $_POST['searchName'];
             $browseItem = $this->model("User");
-            $item = $browseItem->item($name);
-            $balance = $browseItem->showBalance($name);
+            $item = $browseItem->getAllDetial($name);
+            $balance = $browseItem->getBalance($name);
             $data[] = $item;
             $data[] = $balance;
 
