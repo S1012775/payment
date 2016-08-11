@@ -6,26 +6,24 @@ class User extends Connect
     {
         $sql = "SELECT * FROM `bankSystem` WHERE `name` = :name";
         $result = $this->db->prepare($sql);
-        $result->bindParam(":name", $name);
+        $result->bindParam(':name', $name);
         $result->execute();
-        $detial = $result->fetchAll(PDO::FETCH_ASSOC);
 
-        return $detial;
+        return $result->fetchAll();
     }
 
     public function getBalance($name)
     {
         $sql = "SELECT * FROM `Balance` WHERE `name` = :name";
         $result = $this->db->prepare($sql);
-        $result->bindParam(":name", $name);
+        $result->bindParam(':name', $name);
         $result->execute();
-        $balance = $result->fetchAll(PDO::FETCH_ASSOC);
 
-        return $balance;
+        return $result->fetchAll();
     }
 
     // 寫入存款金額與計算餘額
-    public function countBalance($money, $update, $add, $reduce, $now, $name, $withdrawal, $deposit)
+    public function countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit, $version)
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
@@ -34,49 +32,52 @@ class User extends Connect
             $this->db->beginTransaction();
 
             //撈出總共餘額
-            $sql = "SELECT * FROM `Balance` WHERE `name` = :name FOR UPDATE";
+            $sql = "SELECT * FROM `Balance` WHERE `name` = :name";
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(":name", $name);
+            $stmt->bindParam(':name', $name);
             $stmt->execute();
             $count = $stmt->fetch();
             $balance = $count['balance'];
+            $version = $count['version'];
             $add = $balance + $money;
             $reduce = $balance - $money;
-
-            if ($balance < $money) {
-                throw new Exception("餘額不足");
-            }
 
             //判斷出款或是存款
             if ($deposit == "deposit") {
                 $sql = "INSERT INTO `bankSystem` (`name`, `income`, `total`, `nowTime`)
                             VALUES (:name, :money, :balance, :now)";
                 $result = $this->db ->prepare($sql);
-                $result->bindParam(":name", $name);
-                $result->bindParam(":money", $money);
-                $result->bindParam(":balance", $add);
-                $result->bindParam(":now", $now);
+                $result->bindParam(':name', $name);
+                $result->bindParam(':money', $money);
+                $result->bindParam(':balance', $add);
+                $result->bindParam(':now', $now);
                 $result->execute();
-
-                $update = $balance + $money;
-                $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balance WHERE `name` = :name");
-                $result->bindParam(':balance', $update);
-                $result->bindParam(":name", $name);
+sleep(5);
+                $sql = "UPDATE `Balance` SET `balance` = :balance, `version` = `version` + 1
+                        WHERE `name` = :name";
+                $result = $this->db->prepare("$sql");
+                $result->bindParam(':balance', $add);
+                $result->bindParam(':name', $name);
                 $result->execute();
             } elseif ($withdrawal == "withdrawal") {
-                $sql="INSERT INTO `bankSystem` ( `name`, `expend`, `total`, `nowTime`)
-                    VALUES (:name, :money, :balance, :now)";
+                $sql = "INSERT INTO `bankSystem` (`name`, `expend`, `total`, `nowTime`)
+                        VALUES (:name, :money, :balance, :now)";
                 $result = $this->db->prepare($sql);
-                $result->bindParam(":money", $money);
-                $result->bindParam(":now", $now);
-                $result->bindParam(":balance", $reduce);
-                $result->bindParam(":name", $name);
+                $result->bindParam(':money', $money);
+                $result->bindParam(':now', $now);
+                $result->bindParam(':balance', $reduce);
+                $result->bindParam(':name', $name);
                 $result->execute();
 
-                $update = $balance - $money;
-                $result = $this->db->prepare("UPDATE `Balance` SET `balance` = :balance WHERE `name` = :name");
-                $result->bindParam(':balance', $update);
-                $result->bindParam(":name", $name);
+                if ($balance < $money) {
+                    throw new Exception("餘額不足");
+                }
+
+                $sql = "UPDATE `Balance` SET `balance` = :balance, `version` = `version` + 1
+                        WHERE `name` = :name AND `version` = :version";
+                $result = $this->db->prepare("$sql");
+                $result->bindParam(':balance', $reduce);
+                $result->bindParam(':name', $name);
                 $result->execute();
             }
 
