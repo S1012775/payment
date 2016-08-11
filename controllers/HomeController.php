@@ -17,7 +17,7 @@ class HomeController extends Controller
             $withdrawal = "withdrawal";
             $countBalance = $detial->countBalance($money, $update, $add, $reduce, $now, $name, $withdrawal, $deposit);
 
-            $this->view("echo", $countBalance);
+            $this->view("echo", "出款成功");
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
         }
 
@@ -25,7 +25,7 @@ class HomeController extends Controller
             $deposit = "deposit";
             $countBalance = $detial->countBalance($money, $update, $add, $reduce, $now, $name, $withdrawal, $deposit);
 
-            $this->view("echo", $countBalance);
+            $this->view("echo", "存款成功");
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
         }
 
