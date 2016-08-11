@@ -25,10 +25,6 @@
             <input type= "text" class = "form-control" name = "money" value = "">
             <button type = "submit" class = "addbutton" name = "expend">出款</button>
             <button type = "submit" class = "addbutton" name = "income">入款</button>
-        </form>
-        <form method = "post" action = "item">
-            帳號
-            <input type= "text" class = "form-control" name = "searchName" value = "">
             <button type = "submit" class = "addbutton" name = "btSearch">搜尋</button>
         </form>
     </div>

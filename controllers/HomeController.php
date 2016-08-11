@@ -7,19 +7,6 @@ class HomeController extends Controller
         $this->view("choose");
     }
 
-    function item()
-    {
-        $name = $_POST['searchName'];
-        $browseItem = $this->model("User");
-        $item = $browseItem->item($name);
-        $balance = $browseItem->showBalance($name);
-        $data[] = $item;
-        $data[] = $balance;
-
-        $this->view("index", $data);
-
-    }
-
     function btAction()
     {
         if(isset($_POST['expend'])) {
@@ -38,6 +25,17 @@ class HomeController extends Controller
             $countBalance = $browseItem->countIncome($money, $updateBalabce, $nowBalance, $now, $name);
             $this->view("echo", $countBalance);
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
+        }
+
+        if(isset($_POST['btSearch'])) {
+            $name = $_POST['searchName'];
+            $browseItem = $this->model("User");
+            $item = $browseItem->item($name);
+            $balance = $browseItem->showBalance($name);
+            $data[] = $item;
+            $data[] = $balance;
+
+            $this->view("index", $data);
         }
     }
 }
