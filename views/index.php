@@ -30,17 +30,17 @@
     <?php foreach ($data[0] as $value) { ?>
     <tbody>
         <tr>
-            <td><?php echo $value[5]?></td>
-            <td><?php echo $value[1]?></td>
-            <td><?php echo $value[2]?></td>
-            <td><?php echo $value[3]?></td>
-            <td><?php echo $value[4]?></td>
+            <td><?php echo $value['nowTime']?></td>
+            <td><?php echo $value['name']?></td>
+            <td><?php echo $value['expend']?></td>
+            <td><?php echo $value['income']?></td>
+            <td><?php echo $value['total']?></td>
         </tr>
     <?php } ?>
     </tbody>
     </table>
     <div align = "center">
-        <h2>總金額</h2><?php  foreach ($data[1] as $value) {echo $value[0]; } ?>
+        <h2>總金額</h2><?php  foreach ($data[1] as $value) {echo $value['balance']; } ?>
     </div>
 </body>
 

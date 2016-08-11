@@ -11,25 +11,27 @@ class HomeController extends Controller
     {
         $name = $_POST['searchName'];
         $money = $_POST['money'];
-        $browseDetial = $this->model("User");
+        $detial = $this->model("User");
 
         if (isset($_POST['expend'])) {
-            $countBalance = $browseDetial->countExpend($money, $updateBalabce, $nowBalance, $now, $name);
+            $withdrawal = "withdrawal";
+            $countBalance = $detial->countBalance($money, $update, $add, $reduce, $now, $name, $withdrawal, $deposit);
 
             $this->view("echo", $countBalance);
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
         }
 
         if (isset($_POST['income'])) {
-            $countBalance = $browseDetial->countIncome($money, $updateBalabce, $nowBalance, $now, $name);
+            $deposit = "deposit";
+            $countBalance = $detial->countBalance($money, $update, $add, $reduce, $now, $name, $withdrawal, $deposit);
 
             $this->view("echo", $countBalance);
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
         }
 
         if (isset($_POST['btSearch'])) {
-            $item = $browseDetial->getAllDetial($name);
-            $balance = $browseDetial->getBalance($name);
+            $item = $detial->getAllDetial($name);
+            $balance = $detial->getBalance($name);
             $data[] = $item;
             $data[] = $balance;
 
