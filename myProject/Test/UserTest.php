@@ -6,14 +6,14 @@ class UserTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAllDetial()
     {
-        $name = "apple";
+        $name = "test";
 
         $user = new User();
         $user->getAllDetial($name);
     }
     public function testGetBalance()
     {
-        $name = "apple";
+        $name = "test";
 
         $user = new User();
         $user->getBalance($name);
@@ -21,8 +21,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public function testCountDeposit()
     {
-        $name = "apple";
-        $add = 5000;
+        $name = "test";
+        $add = 0;
         $now = "2016-08-12 15:31:00";
         $money = 600;
 
@@ -32,8 +32,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public function testCountWithdrawal()
     {
-        $name = "apple";
-        $reduce = 5000;
+        $name = "test";
+        $reduce = 0;
         $now = "2016-08-12 15:31:00";
         $money = 600;
 
