@@ -1,24 +1,36 @@
 <?php
 
-namespace myProject\Test;
-
-use myProject\Tool;
+require_once 'myProject/User.php';
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
-
-    /**
-    * @param int $paramCount
-    * @param string $paramWhat
-    * @param string $expectedResult
-    *
-    * @dataProvider providerTestRepeatString
-    */
-    public function testgetAllDetial($paramCount, $paramWhat, $expectedResult)
+    public function testGetAllDetial()
     {
-        $tool = new Tool();
-        $result = $tool->repeatString($paramCount, $paramWhat);
-        $this->assertEquals($expectedResult, $result);
+        $name = "apple";
+
+        $user = new User();
+        $user->getAllDetial($name);
+    }
+    public function testGetBalance()
+    {
+        $name = "apple";
+
+        $user = new User();
+        $user->getBalance($name);
+    }
+
+    public function testCountBalance()
+    {
+        $name = "apple";
+        $add = 5000;
+        $reduce = 5000;
+        $now = "2016-08-12 15:31:00";
+        $money = 600;
+        $withdrawal = "withdrawal";
+        $deposit = "deposit";
+
+        $user = new User();
+        $user->countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit);
     }
 
 
