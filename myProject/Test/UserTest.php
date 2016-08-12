@@ -19,20 +19,27 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->getBalance($name);
     }
 
-    public function testCountBalance()
+    public function testCountDeposit()
     {
         $name = "apple";
         $add = 5000;
+        $now = "2016-08-12 15:31:00";
+        $money = 600;
+
+        $user = new User();
+        $user->countDeposit($money, $add, $now, $name);
+    }
+
+    public function testCountWithdrawal()
+    {
+        $name = "apple";
         $reduce = 5000;
         $now = "2016-08-12 15:31:00";
         $money = 600;
-        $withdrawal = "withdrawal";
-        $deposit = "deposit";
 
         $user = new User();
-        $user->countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit);
+        $user->countWithdrawal($money, $reduce, $now, $name);
     }
-
 
 }
 
