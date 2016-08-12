@@ -41,7 +41,6 @@ class User extends Connect
             $version = $count['version'];
             $add = $balance + $money;
             $reduce = $balance - $money;
-sleep(5);
             //判斷出款或是存款
             if ($deposit == "deposit") {
                 $sql = "UPDATE `Balance` SET `balance` = :balance, `version` = `version` + 1
