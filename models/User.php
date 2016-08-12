@@ -63,7 +63,9 @@ class User extends Connect
                 $result->bindParam(':now', $now);
                 $result->execute();
 
-            } elseif ($withdrawal == "withdrawal") {
+            }
+
+            if ($withdrawal == "withdrawal") {
                 if ($balance < $money) {
                     throw new Exception("餘額不足");
                 }
