@@ -55,7 +55,7 @@ class User extends Connect
                 }
 
                 $sql = "INSERT INTO `bankSystem` (`name`, `income`, `total`, `nowTime`)
-                  VALUES (:name, :money, :balance, :now)";
+                    VALUES (:name, :money, :balance, :now)";
                 $result = $this->db ->prepare($sql);
                 $result->bindParam(':name', $name);
                 $result->bindParam(':money', $money);
@@ -69,7 +69,7 @@ class User extends Connect
                 }
 
                 $sql = "UPDATE `Balance` SET `balance` = :balance, `version` = `version` + 1
-                        WHERE `name` = :name && `version` = :version";
+                    WHERE `name` = :name && `version` = :version";
                 $result = $this->db->prepare("$sql");
                 $result->bindParam(':balance', $reduce);
                 $result->bindParam(':name', $name);
@@ -80,7 +80,7 @@ class User extends Connect
                 }
 
                 $sql = "INSERT INTO `bankSystem` (`name`, `expend`, `total`, `nowTime`)
-                        VALUES (:name, :money, :balance, :now)";
+                    VALUES (:name, :money, :balance, :now)";
                 $result = $this->db->prepare($sql);
                 $result->bindParam(':money', $money);
                 $result->bindParam(':now', $now);
