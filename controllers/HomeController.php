@@ -15,17 +15,17 @@ class HomeController extends Controller
 
         if (isset($_POST['expend'])) {
             $withdrawal = "withdrawal";
-            $balance = $detial->countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit, $version);
+            $balance = $detial->countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit);
 
-            $this->view("echo", "$balance");
+            $this->view("echo", $balance);
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
         }
 
         if (isset($_POST['income'])) {
             $deposit = "deposit";
-            $balance = $detial->countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit, $version);
+            $balance = $detial->countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit);
 
-            $this->view("echo", "$balance");
+            $this->view("echo", $balance);
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
         }
 

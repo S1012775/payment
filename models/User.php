@@ -23,7 +23,7 @@ class User extends Connect
     }
 
     // 寫入存款金額與計算餘額
-    public function countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit, $version)
+    public function countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit)
     {
         date_default_timezone_set('Asia/Taipei');
         $now = date("Y-m-d H:i:s");
@@ -32,24 +32,21 @@ class User extends Connect
             $this->db->beginTransaction();
 
             //撈出總共餘額
-            $sql = "SELECT * FROM `Balance` WHERE `name` = :name";
+            $sql = "SELECT * FROM `Balance` WHERE `name` = :name FOR UPDATE";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':name', $name);
             $stmt->execute();
             $count = $stmt->fetch();
             $balance = $count['balance'];
-            $version = $count['version'];
             $add = $balance + $money;
             $reduce = $balance - $money;
 
             //判斷出款或是存款
             if ($deposit == "deposit") {
-                $sql = "UPDATE `Balance` SET `balance` = :balance, `version` = `version` + 1
-                    WHERE `name` = :name && `version` = :version";
+                $sql = "UPDATE `Balance` SET `balance` = :balance WHERE `name` = :name";
                 $result = $this->db->prepare("$sql");
                 $result->bindParam(':balance', $add);
                 $result->bindParam(':name', $name);
-                $result->bindParam(':version', $version);
 
                 if (!$result->execute()) {
                     throw new Exception("更新失敗");
@@ -65,16 +62,15 @@ class User extends Connect
                 $result->execute();
 
             } elseif ($withdrawal == "withdrawal") {
+
                 if ($balance < $money) {
                     throw new Exception("餘額不足");
                 }
 
-                $sql = "UPDATE `Balance` SET `balance` = :balance, `version` = `version` + 1
-                        WHERE `name` = :name && `version` = :version";
+                $sql = "UPDATE `Balance` SET `balance` = :balance WHERE `name` = :name";
                 $result = $this->db->prepare("$sql");
                 $result->bindParam(':balance', $reduce);
                 $result->bindParam(':name', $name);
-                $result->bindParam(':version', $version);
 
                 if (!$result->execute()) {
                     throw new Exception("更新失敗");
