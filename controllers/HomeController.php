@@ -10,20 +10,23 @@ class HomeController extends Controller
     public function btAction()
     {
         $name = $_POST['searchName'];
-        $money = $_POST['money'];
         $detial = $this->model("User");
 
         if (isset($_POST['expend'])) {
-            $withdrawal = "withdrawal";
-            $balance = $detial->countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit);
+            $withdrawal = $_POST['money'];
+            $deposit = 0;
+            $money = $withdrawal;
+            $balance = $detial->countBalance($update, $now, $name, $withdrawal, $deposit, - $money);
 
             $this->view("echo", $balance);
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
         }
 
         if (isset($_POST['income'])) {
-            $deposit = "deposit";
-            $balance = $detial->countBalance($money, $add, $reduce, $now, $name, $withdrawal, $deposit);
+            $deposit = $_POST['money'];
+            $withdrawal = 0;
+            $money = $deposit;
+            $balance = $detial->countBalance($update, $now, $name, $withdrawal, $deposit, $money);
 
             $this->view("echo", $balance);
             header("refresh:0, url=https://payment-annyke.c9users.io/bankSystem/Home/index");
